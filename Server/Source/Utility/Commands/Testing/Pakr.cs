@@ -10,7 +10,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
     public class PakrCommand : ICommand
     {         
-        private const string DEFAULT_ENCRYPTION_KEY = "ProjectMethylamine_PAKR_Key_2025";
+        private const string DEFAULT_ENCRYPTION_KEY = "PAKR_Key_2025";
 
         public void Execute(ConsoleLogger logger, string input)
         {
