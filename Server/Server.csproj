@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>ProjectMethylamine</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ExcludeSatelliteAssembliesFromPublish>true</ExcludeSatelliteAssembliesFromPublish>
+    <NuGetAudit>false</NuGetAudit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <BaseOutputPath>..\Binaries</BaseOutputPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishAot>false</PublishAot>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>Project Methylamine NuGet</Title>
+    <PackageId>PMethNuGet</PackageId>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <PackageOutputPath>..\Content Generator\Packages</PackageOutputPath>
+    <NeutralLanguage>en</NeutralLanguage>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <AnalysisLevel>latest-all</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Content Files - XML Configuration -->
+
+  <!-- Content Files - C# Templates -->
+
+  <!-- Package References -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.14.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
+  </ItemGroup>
+
+  <!-- Optional: Add package metadata if this is distributed -->
+  <PropertyGroup Condition="'$(GeneratePackageOnBuild)' == 'true'">
+    <PackageDescription>Project Methylamine Content Generation Tool</PackageDescription>
+    <PackageAuthors>Your Name</PackageAuthors>
+    <PackageTags>content-generation;game-development</PackageTags>
+    <RepositoryUrl>https://github.com/yourrepo/project-methylamine</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+</Project>
