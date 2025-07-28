@@ -76,20 +76,26 @@ Create and manage game maps with support for seasonal variants.
 ```bash
 # Create a new map
 mapr -c <mapname> <size>
+mapr -c <mapname> <size>
 
 # Create seasonal map variants (base + spring/summer/autumn/winter)
+mapr -c /S <mapname> <size>
 mapr -c /S <mapname> <size>
 
 # Edit existing map line by line
 mapr -e <mapname>
+mapr -e <mapname>
 
 # Delete map and remove references
+mapr -d <mapname>
 mapr -d <mapname>
 
 # List all available maps
 mapr -L
+mapr -L
 
 # Show help
+mapr -h
 mapr -h
 ```
 
@@ -213,6 +219,7 @@ Level Map Format files containing:
 - **IV Generation**: Cryptographically secure random IV per file
 - **Padding**: PKCS7
 - **Default Key**: "PAKR_Key_2025" (PLEASE CHANGE THIS!!! - For example, I will be able to unpack your content if you dont.)
+- **Default Key**: "PAKR_Key_2025" (PLEASE CHANGE THIS!!! - For example, I will be able to unpack your content if you dont.)
 
 ## Development
 
@@ -220,6 +227,7 @@ Level Map Format files containing:
 
 1. Create a class implementing `ICommand` interface
 2. Implement `Execute()` and `ShowHelp()` methods
+3. Register command in `CommandHandler.commands` dictionary (auto invoke is nice)
 3. Register command in `CommandHandler.commands` dictionary (auto invoke is nice)
 
 ### Extending Base Classes
@@ -240,9 +248,12 @@ The application includes comprehensive error handling:
 All operations are logged with timestamps:
 - **INFO**: General information
 - **MAPR**: Map operation results
+- **MAPR**: Map operation results
 - **PAKR**: Packaging operation results
 - **TERMINAL**: User input/output
 - **HELP**: Help and usage information
+   - These are but a few examples of custom tags for
+      the logging system.
    - These are but a few examples of custom tags for
       the logging system.
 
@@ -250,13 +261,14 @@ All operations are logged with timestamps:
 
 The modular architecture supports easy expansion:
 
-### Planned Features
-- [ ] Item management system (`itemz` command)
-- [ ] Advanced map editing tools
-- [ ] Content validation systems
-- [ ] Plugin/mod support
-- [ ] Network content distribution
-- [ ] Configuration management
+### Planned Features (X + -)
+- [-] Item management system (`itemz` command)
+- [+] NuGet package generated for redundency
+- [ ] Realtime content validation system (dedicated thread)
+- [ ] Network content distribution (ehh)
+- [ ] Configuration management (this sounded cool)
+- [-] Give ```pakr /D``` actual functionality (lol)
+- [ ] HTTPS Listener
 
 ### Extension Points
 - Command system for new operations
