@@ -9,7 +9,7 @@ namespace ProjectMethylamine
     {
         private static int versionID = 0;
         private static int buildID = 1;
-        public static String[] information = new string[16];
+        public static String[] information = new string[2];
 
         private static ConsoleLogger logger = new ConsoleLogger();
 
@@ -31,13 +31,8 @@ namespace ProjectMethylamine
                 {
                     information[versionID] = args[1];
                     information[buildID] = args[3].ToUpper();
+                    logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
                 }
-                else if (args[0] == "-b" && args[2] == "-v")
-                {
-                    information[versionID] = args[3];
-                    information[buildID] = args[1].ToUpper();
-                }
-                logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
             }
             else
             {
@@ -45,9 +40,10 @@ namespace ProjectMethylamine
                 {
                     information[versionID] =
                        File.ReadAllText("version.txt").ToString()!.Trim();
-                }
+
                 information[buildID] = "DEBUG";
                 logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
+                }
             }
         }
     }
