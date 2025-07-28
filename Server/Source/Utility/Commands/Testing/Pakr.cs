@@ -75,7 +75,6 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 logger.Log("PAKR", "Invalid syntax. Use 'pakr -h' for help.");
             }
         }
-
         public void ShowHelp(ConsoleLogger logger)
         {
             logger.Log("USAGE", "pakr -p /D [/E] <source_dir> <dest_dir> <zip_name>    : Pack directory into ZIP");
@@ -91,7 +90,6 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             logger.Log("USAGE", "  pakr -p /D Content/ Data/ Core                : Pack without encryption");
             logger.Log("USAGE", "  pakr -u /D /e Data/Core.pakr Output/          : Decrypt and unpack");
         }
-
         private void Pack(ConsoleLogger logger, string sourceDir, string destDir, string zipName, bool overwrite, bool encrypt = false)
         {
             logger.Log("PAKR", $"Packing: {sourceDir} -> {Path.Combine(destDir, zipName)}{(encrypt ? " (Encrypted)" : "")}");
@@ -187,7 +185,6 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 logger.Log("PAKR", $"Packing failed: {ex.Message}");
             }
         }
-
         private void Unpack(ConsoleLogger logger, string archivePath, string destDir, bool decrypt = false)
         {
             logger.Log("PAKR", $"Unpacking: {archivePath} -> {destDir}{(decrypt ? " (Decrypting)" : "")}");
@@ -248,7 +245,6 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 logger.Log("PAKR", $"Unpacking failed: {ex.Message}");
             }
         }
-
         private void HandleWildcardPack(ConsoleLogger logger, string wildcardSource, string destDir, bool overwrite, bool encrypt = false)
         {
             string parent = Path.GetDirectoryName(wildcardSource)!;
