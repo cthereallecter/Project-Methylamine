@@ -257,6 +257,7 @@ The modular architecture supports easy expansion:
 - [ ] Network content distribution (ehh)
 - [ ] Configuration management (this sounded cool)
 - [-] Give ```pakr /D``` actual functionality (lol)
+- [ ] HTTPS Listener
 
 ### Extension Points
 - Command system for new operations
