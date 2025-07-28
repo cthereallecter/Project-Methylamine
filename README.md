@@ -250,14 +250,13 @@ All operations are logged with timestamps:
 
 The modular architecture supports easy expansion:
 
-### Planned Features (X + -)
-- [-] Item management system (`itemz` command)
-- [+] NuGet package generated for redundency
-- [ ] Realtime content validation system (dedicated thread)
-- [ ] Network content distribution (ehh)
-- [ ] Configuration management (this sounded cool)
-- [-] Give ```pakr /D``` actual functionality (lol)
-- [ ] HTTPS Listener
+### Planned Features
+- [ ] Item management system (`itemz` command)
+- [ ] Advanced map editing tools
+- [ ] Content validation systems
+- [ ] Plugin/mod support
+- [ ] Network content distribution
+- [ ] Configuration management
 
 ### Extension Points
 - Command system for new operations
