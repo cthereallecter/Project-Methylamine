@@ -2,7 +2,7 @@
 
 namespace ProjectMethylamine.Source.Utility.Cryptography
 {
-    public static class BitShiftCrypto
+    internal static class BitShiftCrypto
     {
         private const int AES_BLOCK_SIZE = 16; // 128-bit
         private const byte DEFAULT_SHIFT = 3;
@@ -62,8 +62,7 @@ namespace ProjectMethylamine.Source.Utility.Cryptography
 
         private static byte[] DeriveKeyFromString(string key)
         {
-            using var sha = SHA256.Create();
-            return sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(key));
+            return SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(key));
         }
 
         public static async Task<bool> EncryptFileAsync(string inputPath, string outputPath, string? key = null, byte shift = DEFAULT_SHIFT)
@@ -73,17 +72,17 @@ namespace ProjectMethylamine.Source.Utility.Cryptography
                 if (!File.Exists(inputPath))
                     return false;
 
-                byte[] data = await File.ReadAllBytesAsync(inputPath);
+                byte[] data = await File.ReadAllBytesAsync(inputPath).ConfigureAwait(false);
                 byte[] encrypted = Encrypt(data, key, shift);
 
                 string? directory = Path.GetDirectoryName(outputPath);
                 if (!string.IsNullOrEmpty(directory))
                     Directory.CreateDirectory(directory);
 
-                await File.WriteAllBytesAsync(outputPath, encrypted);
+                await File.WriteAllBytesAsync(outputPath, encrypted).ConfigureAwait(false);
                 return true;
             }
-            catch
+            catch (InvalidOperationException)
             {
                 return false;
             }
@@ -96,17 +95,17 @@ namespace ProjectMethylamine.Source.Utility.Cryptography
                 if (!File.Exists(inputPath))
                     return false;
 
-                byte[] data = await File.ReadAllBytesAsync(inputPath);
+                byte[] data = await File.ReadAllBytesAsync(inputPath).ConfigureAwait(false);
                 byte[] decrypted = Decrypt(data, key, shift);
 
                 string? directory = Path.GetDirectoryName(outputPath);
                 if (!string.IsNullOrEmpty(directory))
                     Directory.CreateDirectory(directory);
 
-                await File.WriteAllBytesAsync(outputPath, decrypted);
+                await File.WriteAllBytesAsync(outputPath, decrypted).ConfigureAwait(false);
                 return true;
             }
-            catch
+            catch (InvalidOperationException)
             {
                 return false;
             }

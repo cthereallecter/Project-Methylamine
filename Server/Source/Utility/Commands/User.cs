@@ -1,6 +1,6 @@
 ﻿namespace ProjectMethylamine.Source.Utility.Commands
 {
-    public class ClearCommand : ICommand
+    internal class ClearCommand : ICommand
     {
         public void Execute(ConsoleLogger logger, string input) => Console.Clear();
 
@@ -10,7 +10,7 @@
         }
     }
 
-    public class UnknownCommand : ICommand
+    internal class UnknownCommand : ICommand
     {
         public void Execute(ConsoleLogger logger, string input)
         {

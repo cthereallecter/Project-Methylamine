@@ -7,7 +7,7 @@ using ProjectMethylamine.Source.Utility;
 
 namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
-    public class MaprCommand : ICommand
+    internal class MaprCommand : ICommand
     {
         private const string MapFolder = "Content/Maps/";
         private const string MapClassFolder = MapFolder;
@@ -101,7 +101,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             logger.Log("USAGE", "Seasonal creates: base, base_spring, base_summer, base_autumn, base_winter");
         }
 
-        private void CreateMap(ConsoleLogger logger, string mapName, int size)
+        private static void CreateMap(ConsoleLogger logger, string mapName, int size)
         {
             Directory.CreateDirectory(MapFolder);
             string path = Path.Combine(MapFolder, $"{mapName}.lmf");
@@ -114,7 +114,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             string spacedLine = string.Join(' ', Enumerable.Repeat(".", size));
             var emptyMap = Enumerable.Repeat(spacedLine, size).ToList();
+#pragma warning disable CA1305 // Specify IFormatProvider
             emptyMap.Insert(0, size.ToString());
+#pragma warning restore CA1305 // Specify IFormatProvider
             File.WriteAllLines(path, emptyMap);
 
             logger.Log("MAPR", $"Created map '{mapName}.lmf' with size {size}x{size}.");
@@ -131,7 +133,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             Directory.CreateDirectory(MapFolder);
             string spacedLine = string.Join(' ', Enumerable.Repeat(".", size));
             var baseMapLines = Enumerable.Repeat(spacedLine, size).ToList();
+#pragma warning disable CA1305 // Specify IFormatProvider
             baseMapLines.Insert(0, size.ToString());
+#pragma warning restore CA1305 // Specify IFormatProvider
 
             foreach (string season in seasons)
             {
@@ -155,7 +159,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             logger.Log("MAPR", $"Seasonal creation complete. Created: {createdCount}, Skipped: {skippedCount}");
         }
 
-        private void EditMap(ConsoleLogger logger, string mapName)
+        private static void EditMap(ConsoleLogger logger, string mapName)
         {
             string path = Path.Combine(MapFolder, $"{mapName}.lmf");
             if (!File.Exists(path))
@@ -187,11 +191,13 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             {
                 Console.WriteLine($"[{i}] {tempLines[i]}");
                 Console.Write($"New line {i} > ");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine()!;
 
                 if (!string.IsNullOrWhiteSpace(input))
                 {
+#pragma warning disable CA1307 // Specify StringComparison for clarity
                     string raw = input.Trim().Replace(" ", "");
+#pragma warning restore CA1307 // Specify StringComparison for clarity
                     if (raw.Length != declaredSize)
                     {
                         logger.Log("MAPR", $"Line must contain exactly {declaredSize} characters. Found {raw.Length}. Skipping.");
@@ -204,12 +210,14 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             // Delete original file first, then write new content
             File.Delete(path);
+#pragma warning disable CA1305 // Specify IFormatProvider
             File.WriteAllLines(path, new[] { declaredSize.ToString() }.Concat(tempLines));
+#pragma warning restore CA1305 // Specify IFormatProvider
 
             logger.Log("MAPR", $"Saved changes to '{mapName}.lmf'.");
         }
 
-        private void ListMaps(ConsoleLogger logger)
+        private static void ListMaps(ConsoleLogger logger)
         {
             if (!Directory.Exists(MapFolder))
             {
@@ -243,14 +251,14 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                         logger.Log("MAP", $"{fileName} (invalid format)");
                     }
                 }
-                catch (Exception)
+                catch (InvalidDataException e)
                 {
-                    logger.Log("MAP", $"{fileName} (error reading file)");
+                    logger.Log("MAP", $"{fileName} (error reading file): {e.Message}");
                 }
             }
         }
 
-        private void UpdateOrCreateMapClass(ConsoleLogger logger, string mapName)
+        private static void UpdateOrCreateMapClass(ConsoleLogger logger, string mapName)
         {
             string baseMapName = GetBaseMapName(mapName);
             string className = ToPascalCase(baseMapName);
@@ -264,9 +272,13 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 template.AppendLine();
                 template.AppendLine("namespace ProjectMethylamine.Content.Maps");
                 template.AppendLine("{");
+#pragma warning disable CA1305 // Specify IFormatProvider
                 template.AppendLine($"    public class {className} : Map");
+#pragma warning restore CA1305 // Specify IFormatProvider
                 template.AppendLine("    {");
+#pragma warning disable CA1305 // Specify IFormatProvider
                 template.AppendLine($"        {mapVar}");
+#pragma warning restore CA1305 // Specify IFormatProvider
                 template.AppendLine("    }");
                 template.AppendLine("}");
 
@@ -276,22 +288,28 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             }
 
             var lines = File.ReadAllLines(classPath).ToList();
+#pragma warning disable CA1307 // Specify StringComparison for clarity
             if (lines.Any(l => l.Contains($"{mapName} =")))
             {
                 logger.Log("MAPR", $"Map variable already exists in {className}.cs");
                 return;
             }
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
+#pragma warning disable CA1310 // Specify StringComparison for correctness
             int insertIndex = lines.FindLastIndex(l => l.Trim().StartsWith("private readonly")) + 1;
+#pragma warning restore CA1310 // Specify StringComparison for correctness
             if (insertIndex == 0)
-                insertIndex = lines.FindIndex(l => l.Contains("{")) + 1;
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+                insertIndex = lines.FindIndex(l => l.Contains('{')) + 1;
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
             lines.Insert(insertIndex, $"        {mapVar}");
             File.WriteAllLines(classPath, lines);
             logger.Log("MAPR", $"Added reference to '{mapName}.lmf' in {className}.cs");
         }
 
-        private void DeleteMap(ConsoleLogger logger, string mapName)
+        private static void DeleteMap(ConsoleLogger logger, string mapName)
         {
             string lmfPath = Path.Combine(MapFolder, $"{mapName}.lmf");
             if (!File.Exists(lmfPath))
@@ -315,7 +333,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             }
 
             var lines = File.ReadAllLines(classPath).ToList();
+#pragma warning disable CA1307 // Specify StringComparison for clarity
             int removedCount = lines.RemoveAll(l => l.Contains($"\"{mapName}.lmf\""));
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
             if (removedCount == 0)
             {
@@ -323,7 +343,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 return;
             }
 
+#pragma warning disable CA1310 // Specify StringComparison for correctness
             bool hasMapFields = lines.Any(l => l.TrimStart().StartsWith("private readonly string"));
+#pragma warning restore CA1310 // Specify StringComparison for correctness
             if (!hasMapFields)
             {
                 File.Delete(classPath);
@@ -338,24 +360,26 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
         // Converts dots to underscores for file names
         // e.g., "nexus.christmas" → "nexus_christmas"
-        private string ConvertDotsToUnderscores(string mapName)
+        private static string ConvertDotsToUnderscores(string mapName)
         {
             return mapName.Replace('.', '_');
         }
 
         // Gets the base map name for class generation (removes seasonal suffixes but keeps main name intact)
         // e.g., "void_cradle_ruins" → "void_cradle_ruins", "void_cradle_ruins_spring" → "void_cradle_ruins"
-        private string GetBaseMapName(string mapName)
+        private static string GetBaseMapName(string mapName)
         {
             // Strip seasonal suffixes first
             string[] seasonalSuffixes = { "_spring", "_summer", "_autumn", "_winter" };
             foreach (string suffix in seasonalSuffixes)
             {
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                 if (mapName.EndsWith(suffix))
                 {
                     mapName = mapName.Substring(0, mapName.Length - suffix.Length);
                     break;
                 }
+#pragma warning restore CA1310 // Specify StringComparison for correctness
             }
 
             // Split on dot (not underscore)
@@ -363,11 +387,13 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
         }
 
         // Converts "void_cradle_ruins" -> "VoidCradleRuins"
-        private string ToPascalCase(string input)
+        private static string ToPascalCase(string input)
         {
+#pragma warning disable CA1304 // Specify CultureInfo
             return string.Join("", input
                 .Split('_', StringSplitOptions.RemoveEmptyEntries)
-                .Select(part => char.ToUpper(part[0]) + part.Substring(1)));
+                .Select(static part => char.ToUpper(part[0]) + part.Substring(1)));
+#pragma warning restore CA1304 // Specify CultureInfo
         }
     }
 }

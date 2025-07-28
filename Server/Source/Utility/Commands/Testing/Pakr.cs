@@ -8,7 +8,7 @@ using ProjectMethylamine.Source.Utility.Cryptography;
 
 namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
-    public class PakrCommand : ICommand
+    internal class PakrCommand : ICommand
     {         
         private const string DEFAULT_ENCRYPTION_KEY = "PAKR_Key_2025";
 
@@ -30,9 +30,11 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             if (tokens.Contains("-p") && tokens.Contains("/D"))
             {
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                 var nonFlagTokens = tokens
-                    .Where(t => !t.StartsWith("-") && !t.Equals("/D") && !t.Equals("/E") && !t.Equals("/e"))
+                    .Where(t => !t.StartsWith('-') && !t.Equals("/D", StringComparison.Ordinal) && !t.Equals("/E", StringComparison.Ordinal) && !t.Equals("/e", StringComparison.Ordinal))
                     .ToArray();
+#pragma warning restore CA1310 // Specify StringComparison for correctness
 
                 if (nonFlagTokens.Length < 3)
                 {
@@ -44,7 +46,8 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 string destDir = nonFlagTokens[1];
                 string zipName = nonFlagTokens[2];
 
-                if (sourceDir.Contains("*"))
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+                if (sourceDir.Contains('*'))
                 {
                     HandleWildcardPack(logger, sourceDir, destDir, overwrite, encrypt);
                 }
@@ -52,12 +55,15 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 {
                     Pack(logger, sourceDir, destDir, zipName, overwrite, encrypt);
                 }
+#pragma warning restore CA1307 // Specify StringComparison for clarity
             }
             else if (tokens.Contains("-u") && tokens.Contains("/D"))
             {
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                 var nonFlagTokens = tokens
-                    .Where(t => !t.StartsWith("-") && !t.Equals("/D") && !t.Equals("/E") && !t.Equals("/e"))
+                    .Where(t => !t.StartsWith('-') && !t.Equals("/D", StringComparison.Ordinal) && !t.Equals("/E", StringComparison.Ordinal) && !t.Equals("/e", StringComparison.Ordinal))
                     .ToArray();
+#pragma warning restore CA1310 // Specify StringComparison for correctness
 
                 if (nonFlagTokens.Length < 2)
                 {
@@ -90,7 +96,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             logger.Log("USAGE", "  pakr -p /D Content/ Data/ Core                : Pack without encryption");
             logger.Log("USAGE", "  pakr -u /D /e Data/Core.pakr Output/          : Decrypt and unpack");
         }
-        private void Pack(ConsoleLogger logger, string sourceDir, string destDir, string zipName, bool overwrite, bool encrypt = false)
+        private static void Pack(ConsoleLogger logger, string sourceDir, string destDir, string zipName, bool overwrite, bool encrypt = false)
         {
             logger.Log("PAKR", $"Packing: {sourceDir} -> {Path.Combine(destDir, zipName)}{(encrypt ? " (Encrypted)" : "")}");
 
@@ -104,9 +110,13 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             {
                 Directory.CreateDirectory(destDir);
                 string finalExtension = encrypt ? ".pakr" : ".zip";
+#pragma warning disable CA1310 // Specify StringComparison for correctness
+#pragma warning disable CA1310 // Specify StringComparison for correctness
                 string baseZipName = zipName.EndsWith(".zip") || zipName.EndsWith(".pakr")
                                      ? Path.GetFileNameWithoutExtension(zipName)
                                      : zipName;
+#pragma warning restore CA1310 // Specify StringComparison for correctness
+#pragma warning restore CA1310 // Specify StringComparison for correctness
                 string fullZipPath = Path.Combine(destDir, $"{baseZipName}{finalExtension}");
 
                 if (File.Exists(fullZipPath))
@@ -136,7 +146,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                                      .Select(f => f.Substring(sourceDir.Length).TrimStart(Path.DirectorySeparatorChar))
                                      .ToArray()
                 };
+#pragma warning disable CA1869 // Cache and reuse 'JsonSerializerOptions' instances
                 File.WriteAllText(manifestPath, JsonSerializer.Serialize(manifest, new JsonSerializerOptions { WriteIndented = true }));
+#pragma warning restore CA1869 // Cache and reuse 'JsonSerializerOptions' instances
 
                 string tempZipPath = encrypt ? Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".zip") : fullZipPath;
 
@@ -173,19 +185,19 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                         {
                             File.Delete(tempZipPath);
                         }
-                        catch (Exception cleanupEx)
+                        catch (InvalidOperationException cleanupEx)
                         {
                             logger.Log("PAKR", $"Warning: Failed to delete temp file: {cleanupEx.Message}");
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 logger.Log("PAKR", $"Packing failed: {ex.Message}");
             }
         }
-        private void Unpack(ConsoleLogger logger, string archivePath, string destDir, bool decrypt = false)
+        private static void Unpack(ConsoleLogger logger, string archivePath, string destDir, bool decrypt = false)
         {
             logger.Log("PAKR", $"Unpacking: {archivePath} -> {destDir}{(decrypt ? " (Decrypting)" : "")}");
 
@@ -232,7 +244,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                         if (manifest.TryGetProperty("files", out var filesElement) && filesElement.ValueKind == JsonValueKind.Array)
                             logger.Log("PAKR", $"Files extracted: {filesElement.GetArrayLength()}");
                     }
-                    catch (Exception manifestEx)
+                    catch (InvalidDataException manifestEx)
                     {
                         logger.Log("PAKR", $"Warning: Could not read manifest: {manifestEx.Message}");
                     }
@@ -240,12 +252,12 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
                 logger.Log("PAKR", $"Unpacked successfully: {destDir}");
             }
-            catch (Exception ex)
+            catch (InvalidOperationException ex)
             {
                 logger.Log("PAKR", $"Unpacking failed: {ex.Message}");
             }
         }
-        private void HandleWildcardPack(ConsoleLogger logger, string wildcardSource, string destDir, bool overwrite, bool encrypt = false)
+        private static void HandleWildcardPack(ConsoleLogger logger, string wildcardSource, string destDir, bool overwrite, bool encrypt = false)
         {
             string parent = Path.GetDirectoryName(wildcardSource)!;
             string pattern = Path.GetFileName(wildcardSource);

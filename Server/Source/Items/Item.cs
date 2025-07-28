@@ -1,6 +1,6 @@
 ﻿namespace ProjectMethylamine.Source.Items
 {
-    public abstract class Item
+    internal abstract class Item
     {
         
     }

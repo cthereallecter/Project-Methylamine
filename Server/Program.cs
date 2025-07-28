@@ -5,13 +5,13 @@ namespace ProjectMethylamine
     /// <summary>
     /// Main application entry point with automatic mod loading via CompilationUtility.
     /// </summary>
-    public static class Program
+    internal static class Program
     {
-        private static int versionID = 0;
-        private static int buildID = 1;
-        public static String[] information = new string[2];
+        private const int versionID = 0;
+        private const int buildID = 1;
+        private static readonly String[] information = ["v0.0.1", "DEBUG"];
 
-        private static ConsoleLogger logger = new ConsoleLogger();
+        private static readonly ConsoleLogger logger = new();
 
         /// <summary>
         /// Application entry point.
@@ -19,7 +19,9 @@ namespace ProjectMethylamine
         /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods
             Display_InitializeProgram(args);
+#pragma warning restore CA1062 // Validate arguments of public methods
             CommandHandler.Input(logger);
         }
 
@@ -30,7 +32,7 @@ namespace ProjectMethylamine
                 if (args[0] == "-v" && args[2] == "-b")
                 {
                     information[versionID] = args[1];
-                    information[buildID] = args[3].ToUpper();
+                    information[buildID] = args[3].ToUpper(System.Globalization.CultureInfo.CurrentCulture);
                     logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
                 }
             }

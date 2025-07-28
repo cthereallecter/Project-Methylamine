@@ -3,20 +3,20 @@ using ProjectMethylamine.Source.Utility.Commands.Testing;
 
 namespace ProjectMethylamine.Source.Utility
 {
-    public interface ICommand
+    internal interface ICommand
     {
         void Execute(ConsoleLogger logger, string input);
 
         void ShowHelp(ConsoleLogger logger);
     }
 
-    public static class CommandHandler
+    internal static class CommandHandler
     {
         private static readonly Dictionary<string, ICommand> commands = new()
         {
             ["clear"] = new ClearCommand(),
             ["itemz"]= new ItemzCommand(),
-            ["mappr"] = new MapprCommand(),
+            ["mappr"] = new MaprCommand(),
             ["pakr"] = new PakrCommand()
         };
 
