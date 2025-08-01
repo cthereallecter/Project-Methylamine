@@ -67,7 +67,7 @@ Comprehensive logging with both console and file output:
 
 ## Available Commands
 
-### Map Management (`mappr`)
+### Map Management (`mapr`)
 
 Create and manage game maps with support for seasonal variants.
 
@@ -181,16 +181,16 @@ clear
 ```
 ProjectMethylamine/
 ├── Source/
-│   ├── Items/           # Item system base classes
-│   ├── Maps/            # Map system base classes
+│   ├── Items/             # Item system base classes
+│   ├── Maps/              # Map system base classes
 │   └── Utility/
-│       ├── Commands/    # Command implementations
-│       │   └── Testing/ # Development/testing commands
-│       └── Cryptography/# Encryption utilities
+│       ├── Commands/      # Command implementations
+│       │   └── Testing/   # Development/testing commands
+│       └── Cryptography/  # Encryption utilities
 ├── Content/
-│   └── Maps/           # Generated map files (.lmf)
-├── Logs/               # Application logs
-└── Program.cs          # Application entry point
+│   └── Maps/              # Generated map files (.lmf)
+├── Logs/                  # Application logs
+└── Program.cs             # Application entry point
 ```
 
 ## File Formats
