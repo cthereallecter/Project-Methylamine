@@ -30,11 +30,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             if (tokens.Contains("-p") && tokens.Contains("/D"))
             {
-#pragma warning disable CA1310 // Specify StringComparison for correctness
                 var nonFlagTokens = tokens
                     .Where(t => !t.StartsWith('-') && !t.Equals("/D", StringComparison.Ordinal) && !t.Equals("/E", StringComparison.Ordinal) && !t.Equals("/e", StringComparison.Ordinal))
                     .ToArray();
-#pragma warning restore CA1310 // Specify StringComparison for correctness
 
                 if (nonFlagTokens.Length < 3)
                 {
@@ -46,7 +44,6 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 string destDir = nonFlagTokens[1];
                 string zipName = nonFlagTokens[2];
 
-#pragma warning disable CA1307 // Specify StringComparison for clarity
                 if (sourceDir.Contains('*'))
                 {
                     HandleWildcardPack(logger, sourceDir, destDir, overwrite, encrypt);
@@ -55,15 +52,12 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 {
                     Pack(logger, sourceDir, destDir, zipName, overwrite, encrypt);
                 }
-#pragma warning restore CA1307 // Specify StringComparison for clarity
             }
             else if (tokens.Contains("-u") && tokens.Contains("/D"))
             {
-#pragma warning disable CA1310 // Specify StringComparison for correctness
                 var nonFlagTokens = tokens
                     .Where(t => !t.StartsWith('-') && !t.Equals("/D", StringComparison.Ordinal) && !t.Equals("/E", StringComparison.Ordinal) && !t.Equals("/e", StringComparison.Ordinal))
                     .ToArray();
-#pragma warning restore CA1310 // Specify StringComparison for correctness
 
                 if (nonFlagTokens.Length < 2)
                 {
@@ -110,13 +104,9 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             {
                 Directory.CreateDirectory(destDir);
                 string finalExtension = encrypt ? ".pakr" : ".zip";
-#pragma warning disable CA1310 // Specify StringComparison for correctness
-#pragma warning disable CA1310 // Specify StringComparison for correctness
                 string baseZipName = zipName.EndsWith(".zip") || zipName.EndsWith(".pakr")
                                      ? Path.GetFileNameWithoutExtension(zipName)
                                      : zipName;
-#pragma warning restore CA1310 // Specify StringComparison for correctness
-#pragma warning restore CA1310 // Specify StringComparison for correctness
                 string fullZipPath = Path.Combine(destDir, $"{baseZipName}{finalExtension}");
 
                 if (File.Exists(fullZipPath))
@@ -146,9 +136,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                                      .Select(f => f.Substring(sourceDir.Length).TrimStart(Path.DirectorySeparatorChar))
                                      .ToArray()
                 };
-#pragma warning disable CA1869 // Cache and reuse 'JsonSerializerOptions' instances
                 File.WriteAllText(manifestPath, JsonSerializer.Serialize(manifest, new JsonSerializerOptions { WriteIndented = true }));
-#pragma warning restore CA1869 // Cache and reuse 'JsonSerializerOptions' instances
 
                 string tempZipPath = encrypt ? Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".zip") : fullZipPath;
 

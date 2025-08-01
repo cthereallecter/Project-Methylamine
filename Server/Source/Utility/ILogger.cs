@@ -1,18 +1,12 @@
 ﻿namespace ProjectMethylamine.Source.Utility
 {
-    /// <summary>
-    /// Provides a lightweight logging interface for map operations.
-    /// </summary>
     internal interface ILogger
     {
         String Log(string level, string message, bool isLine = true, bool isSilent = false, bool isWritten = true);
 
         void Log(string level, Exception ex, string message, bool isLine = true, bool isSilent = false, bool isWritten = true);
     }
-
-    /// <summary>
-    /// Simple console and file logger with timestamped entries, no archiving.
-    /// </summary>
+    
     internal class ConsoleLogger : ILogger
     {
         private readonly string logPath = Path.Combine("Logs", "latest.log");
@@ -37,9 +31,7 @@
 
         public String Log(string level, string message, bool isLine = true, bool isSilent = false, bool isWritten = true)
         {
-#pragma warning disable CA1305 // Specify IFormatProvider
             string time = DateTime.Now.ToString("HH:mm:ss");
-#pragma warning restore CA1305 // Specify IFormatProvider
             string line = $"[{time}] [{level}] {message}";
             if (isSilent)
             {
@@ -62,9 +54,7 @@
 
         public void Log(string level, Exception ex, string message, bool isLine = true, bool isSilent = false, bool isWritten = true)
         {
-#pragma warning disable CA1305 // Specify IFormatProvider
             string time = DateTime.Now.ToString("HH:mm:ss");
-#pragma warning restore CA1305 // Specify IFormatProvider
             string line = $"[{time}] [{level}] {message}: {ex}";
             if (isSilent)
             {

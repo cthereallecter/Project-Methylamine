@@ -2,9 +2,6 @@
 
 namespace ProjectMethylamine
 {
-    /// <summary>
-    /// Main application entry point with automatic mod loading via CompilationUtility.
-    /// </summary>
     internal static class Program
     {
         private const int versionID = 0;
@@ -13,15 +10,9 @@ namespace ProjectMethylamine
 
         private static readonly ConsoleLogger logger = new();
 
-        /// <summary>
-        /// Application entry point.
-        /// </summary>
-        /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
             Display_InitializeProgram(args);
-#pragma warning restore CA1062 // Validate arguments of public methods
             CommandHandler.Input(logger);
         }
 
