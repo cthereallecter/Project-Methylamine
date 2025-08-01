@@ -104,9 +104,11 @@ mapr -h
 #### Map File Structure
 
 ```
-16
+16                                  # Size 16x16
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0...
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 ```
 
 First line contains the map size, followed by tile data where each character represents a tile type.
