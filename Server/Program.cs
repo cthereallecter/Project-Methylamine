@@ -34,8 +34,8 @@ namespace ProjectMethylamine
                     information[versionID] =
                        File.ReadAllText("version.txt").ToString()!.Trim();
 
-                information[buildID] = "DEBUG";
-                logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
+                    information[buildID] = "DEBUG";
+                    logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
                 }
             }
         }

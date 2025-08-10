@@ -1,4 +1,4 @@
-namespace ProjectMethylamine.Interface
+namespace ProjectMethylamine
 {
     internal static class Program
     {

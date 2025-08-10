@@ -6,8 +6,8 @@
 
         void Log(string level, Exception ex, string message, bool isLine = true, bool isSilent = false, bool isWritten = true);
     }
-    
-    internal class ConsoleLogger : ILogger
+
+    public class ConsoleLogger : ILogger
     {
         private readonly string logPath = Path.Combine("Logs", "latest.log");
         private bool initialized;

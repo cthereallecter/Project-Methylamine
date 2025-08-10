@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ProjectMethylamine.Source.Utility.Cryptography;
+using System;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
-using ProjectMethylamine.Source.Utility.Cryptography;
 
 namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
     internal class PakrCommand : ICommand
-    {         
+    {
         private const string DEFAULT_ENCRYPTION_KEY = "PAKR_Key_2025";
 
         public void Execute(ConsoleLogger logger, string input)
@@ -92,7 +90,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
         }
         private static void Pack(ConsoleLogger logger, string sourceDir, string destDir, string zipName, bool overwrite, bool encrypt = false)
         {
-            logger.Log("PAKR", $"Packing: {sourceDir} -> {Path.Combine(destDir, zipName)}{(encrypt ? " (Encrypted)" : "")}");
+            logger.Log("PAKR", $"Packing: {sourceDir} -> {Path.Combine(destDir, zipName)}{(encrypt ? " (Encrypted)" : string.Empty)}");
 
             if (!Directory.Exists(sourceDir))
             {
@@ -187,7 +185,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
         }
         private static void Unpack(ConsoleLogger logger, string archivePath, string destDir, bool decrypt = false)
         {
-            logger.Log("PAKR", $"Unpacking: {archivePath} -> {destDir}{(decrypt ? " (Decrypting)" : "")}");
+            logger.Log("PAKR", $"Unpacking: {archivePath} -> {destDir}{(decrypt ? " (Decrypting)" : string.Empty)}");
 
             if (!File.Exists(archivePath))
             {

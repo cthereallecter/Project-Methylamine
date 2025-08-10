@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Text;
-using ProjectMethylamine.Source.Maps;
-using ProjectMethylamine.Source.Utility;
 
 namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
@@ -96,7 +93,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             logger.Log("USAGE", "mapr -d <mapname>          : Delete .lmf and remove from map class");
             logger.Log("USAGE", "mapr -L                    : List all map files");
             logger.Log("USAGE", "mapr -h                    : Show this help message");
-            logger.Log("USAGE", "");
+            logger.Log("USAGE", string.Empty);
             logger.Log("USAGE", "Note: Use dots for variants (nexus.christmas) - stored as nexus_christmas.lmf");
             logger.Log("USAGE", "Seasonal creates: base, base_spring, base_summer, base_autumn, base_winter");
         }
@@ -191,7 +188,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
                 if (!string.IsNullOrWhiteSpace(input))
                 {
-                    string raw = input.Trim().Replace(" ", "");
+                    string raw = input.Trim().Replace(" ", string.Empty);
                     if (raw.Length != declaredSize)
                     {
                         logger.Log("MAPR", $"Line must contain exactly {declaredSize} characters. Found {raw.Length}. Skipping.");
@@ -365,7 +362,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
         // Converts "void_cradle_ruins" -> "VoidCradleRuins"
         private static string ToPascalCase(string input)
         {
-            return string.Join("", input
+            return string.Join(string.Empty, input
                 .Split('_', StringSplitOptions.RemoveEmptyEntries)
                 .Select(static part => char.ToUpper(part[0]) + part.Substring(1)));
         }

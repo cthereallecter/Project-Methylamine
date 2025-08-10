@@ -2,6 +2,6 @@
 {
     internal abstract class Item
     {
-        
+
     }
 }

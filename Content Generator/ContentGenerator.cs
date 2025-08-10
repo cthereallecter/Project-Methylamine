@@ -22,8 +22,6 @@ namespace ProjectMethylamine
             {
                 logger.Log("INIT", $"Failed to pre-load Server.dll: {ex.Message}");
             }
-
-
         }
 
         private void btnPAKRStart_Click(object sender, EventArgs e)
