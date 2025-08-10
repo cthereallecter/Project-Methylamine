@@ -85,7 +85,7 @@ namespace ProjectMethylamine
             }
         }
 
-        private void btnMAPPRMake_Click(object sender, EventArgs e)
+        private void btnMAPRMake_Click(object sender, EventArgs e)
         {
             try
             {
@@ -99,11 +99,11 @@ namespace ProjectMethylamine
                 string command;
                 if (chkMapSeasonal.Checked)
                 {
-                    command = $"mappr -c /S {txtMapName.Text} {nmdMapSize.Value}";
+                    command = $"mapr -c /S {txtMapName.Text} {nmdMapSize.Value}";
                 }
                 else
                 {
-                    command = $"mappr -c {txtMapName.Text} {nmdMapSize.Value}";
+                    command = $"mapr -c {txtMapName.Text} {nmdMapSize.Value}";
                 }
                 CommandHandler.InvokeCommand(logger, command);
                 lsLogBox.Items.Add($"Command executed: {command}");
@@ -116,7 +116,7 @@ namespace ProjectMethylamine
             }
         }
 
-        private void btnMAPPRDelete_Click(object sender, EventArgs e)
+        private void btnMAPRDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace ProjectMethylamine
                     return;
                 }
 
-                string command = $"mappr -e {txtMapName.Text}";
+                string command = $"mapr -e {txtMapName.Text}";
                 CommandHandler.InvokeCommand(logger, command);
                 lsLogBox.Items.Add($"Command executed: {command}");
             }

@@ -42,8 +42,6 @@
             txtMapName = new TextBox();
             chkMapSeasonal = new CheckBox();
             btnMAPPRMake = new Button();
-            lstDataPacks = new ListBox();
-            listBox1 = new ListBox();
             grpPAKR.SuspendLayout();
             gr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nmdMapSize).BeginInit();
@@ -185,31 +183,11 @@
             btnMAPPRMake.UseVisualStyleBackColor = true;
             btnMAPPRMake.Click += btnMAPPRMake_Click;
             // 
-            // lstDataPacks
-            // 
-            lstDataPacks.FormattingEnabled = true;
-            lstDataPacks.ItemHeight = 15;
-            lstDataPacks.Location = new Point(519, 19);
-            lstDataPacks.Name = "lstDataPacks";
-            lstDataPacks.Size = new Size(126, 364);
-            lstDataPacks.TabIndex = 12;
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(651, 19);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(137, 364);
-            listBox1.TabIndex = 13;
-            // 
             // ContentGenerator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 392);
-            Controls.Add(listBox1);
-            Controls.Add(lstDataPacks);
+            ClientSize = new Size(526, 392);
             Controls.Add(gr);
             Controls.Add(grpPAKR);
             Controls.Add(lsLogBox);
@@ -239,8 +217,6 @@
         private CheckBox chkEncrypt;
         private TextBox txtMapName;
         private NumericUpDown nmdMapSize;
-        private ListBox lstDataPacks;
-        private ListBox listBox1;
         private Button btnMAPPRDelete;
     }
 }
