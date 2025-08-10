@@ -11,14 +11,14 @@ namespace ProjectMethylamine.Source.Utility.Netting
         private readonly FileServer _fileServer;
         private readonly HttpServer _httpServer;
 
-        public WebServer(string domain, int httpsPort, int httpPort, string staticFileRoot)
+        public WebServer(string domain, int httpsPort, string staticFileRoot)
         {
             _fileServer = new FileServer(staticFileRoot);
 
             string[] prefixes = new string[]
             {
                 $"https://{domain}:{httpsPort}/",
-                $"http://localhost:{httpPort}/"
+                $"http://localhost:8080/"
             };
 
             _httpServer = new HttpServer(prefixes, HandleRequestAsync);

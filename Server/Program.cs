@@ -17,7 +17,6 @@ namespace ProjectMethylamine
             var webServer = new WebServer(
                 domain: "thehideout.cthereallecter.com",
                 httpsPort: 443,
-                httpPort: 8080,
                 staticFileRoot: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web")
             );
 
