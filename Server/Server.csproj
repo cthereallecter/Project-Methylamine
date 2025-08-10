@@ -63,6 +63,9 @@
     <None Update="Web\css\styles.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Web\Methylamine-Client.swf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <!-- Optional: Add package metadata if this is distributed -->
