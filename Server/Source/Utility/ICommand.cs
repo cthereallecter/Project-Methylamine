@@ -16,7 +16,7 @@ namespace ProjectMethylamine.Source.Utility
         {
             ["clear"] = new ClearCommand(),
             ["itemz"] = new ItemzCommand(),
-            ["mappr"] = new MaprCommand(),
+            ["mapr"] = new MaprCommand(),
             ["pakr"] = new PakrCommand()
         };
 
