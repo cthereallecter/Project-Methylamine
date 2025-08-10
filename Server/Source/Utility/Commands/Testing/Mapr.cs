@@ -7,7 +7,7 @@ using ProjectMethylamine.Source.Utility;
 
 namespace ProjectMethylamine.Source.Utility.Commands.Testing
 {
-    public class MapprCommand : ICommand
+    internal class MaprCommand : ICommand
     {
         private const string MapFolder = "Content/Maps/";
         private const string MapClassFolder = MapFolder;
@@ -28,7 +28,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 case "-c":
                     if (tokens.Length < 4)
                     {
-                        logger.Log("MAPPR", "Usage: mappr -c [/S] <mapname> <size>");
+                        logger.Log("MAPR", "Usage: mapr -c [/S] <mapname> <size>");
                         return;
                     }
 
@@ -38,14 +38,14 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
                     if (tokens.Length < (createSeasonal ? 5 : 4))
                     {
-                        logger.Log("MAPPR", createSeasonal ? "Usage: mappr -c /S <mapname> <size>" : "Usage: mappr -c <mapname> <size>");
+                        logger.Log("MAPR", createSeasonal ? "Usage: mapr -c /S <mapname> <size>" : "Usage: mapr -c <mapname> <size>");
                         return;
                     }
 
                     string newMapName = ConvertDotsToUnderscores(tokens[nameIndex]);
                     if (!int.TryParse(tokens[sizeIndex], out int newSize) || newSize <= 0)
                     {
-                        logger.Log("MAPPR", "Invalid size. Size must be a positive integer.");
+                        logger.Log("MAPR", "Invalid size. Size must be a positive integer.");
                         return;
                     }
 
@@ -62,7 +62,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 case "-e":
                     if (tokens.Length < 3)
                     {
-                        logger.Log("MAPPR", "Usage: mappr -e <mapname>");
+                        logger.Log("MAPR", "Usage: mapr -e <mapname>");
                         return;
                     }
                     EditMap(logger, ConvertDotsToUnderscores(tokens[2]));
@@ -71,7 +71,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 case "-d":
                     if (tokens.Length < 3)
                     {
-                        logger.Log("MAPPR", "Usage: mappr -d <mapname>");
+                        logger.Log("MAPR", "Usage: mapr -d <mapname>");
                         return;
                     }
                     DeleteMap(logger, ConvertDotsToUnderscores(tokens[2]));
@@ -82,7 +82,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                     break;
 
                 default:
-                    logger.Log("MAPPR", $"Unknown operation: {operation}");
+                    logger.Log("MAPR", $"Unknown operation: {operation}");
                     ShowHelp(logger);
                     break;
             }
@@ -90,34 +90,34 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
         public void ShowHelp(ConsoleLogger logger)
         {
-            logger.Log("USAGE", "mappr -c <mapname> <size>   : Create a new .lmf and update .cs");
-            logger.Log("USAGE", "mappr -c /S <mapname> <size>: Create base map + seasonal variants");
-            logger.Log("USAGE", "mappr -e <mapname>          : Edit existing .lmf map line by line");
-            logger.Log("USAGE", "mappr -d <mapname>          : Delete .lmf and remove from map class");
-            logger.Log("USAGE", "mappr -L                    : List all map files");
-            logger.Log("USAGE", "mappr -h                    : Show this help message");
+            logger.Log("USAGE", "mapr -c <mapname> <size>   : Create a new .lmf and update .cs");
+            logger.Log("USAGE", "mapr -c /S <mapname> <size>: Create base map + seasonal variants");
+            logger.Log("USAGE", "mapr -e <mapname>          : Edit existing .lmf map line by line");
+            logger.Log("USAGE", "mapr -d <mapname>          : Delete .lmf and remove from map class");
+            logger.Log("USAGE", "mapr -L                    : List all map files");
+            logger.Log("USAGE", "mapr -h                    : Show this help message");
             logger.Log("USAGE", "");
             logger.Log("USAGE", "Note: Use dots for variants (nexus.christmas) - stored as nexus_christmas.lmf");
             logger.Log("USAGE", "Seasonal creates: base, base_spring, base_summer, base_autumn, base_winter");
         }
 
-        private void CreateMap(ConsoleLogger logger, string mapName, int size)
+        private static void CreateMap(ConsoleLogger logger, string mapName, int size)
         {
             Directory.CreateDirectory(MapFolder);
             string path = Path.Combine(MapFolder, $"{mapName}.lmf");
 
             if (File.Exists(path))
             {
-                logger.Log("MAPPR", $"Map '{mapName}.lmf' already exists.");
+                logger.Log("MAPR", $"Map '{mapName}.lmf' already exists.");
                 return;
             }
 
-            string spacedLine = string.Join(' ', Enumerable.Repeat(".", size));
+            string spacedLine = string.Join(' ', Enumerable.Repeat("0", size));
             var emptyMap = Enumerable.Repeat(spacedLine, size).ToList();
             emptyMap.Insert(0, size.ToString());
             File.WriteAllLines(path, emptyMap);
 
-            logger.Log("MAPPR", $"Created map '{mapName}.lmf' with size {size}x{size}.");
+            logger.Log("MAPR", $"Created map '{mapName}.lmf' with size {size}x{size}.");
 
             UpdateOrCreateMapClass(logger, mapName);
         }
@@ -140,61 +140,61 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
                 if (File.Exists(path))
                 {
-                    logger.Log("MAPPR", $"Map '{mapName}.lmf' already exists. Skipping.");
+                    logger.Log("MAPR", $"Map '{mapName}.lmf' already exists. Skipping.");
                     skippedCount++;
                     continue;
                 }
 
                 File.WriteAllLines(path, baseMapLines);
 
-                logger.Log("MAPPR", $"Created seasonal map '{mapName}.lmf' with size {size}x{size}.");
+                logger.Log("MAPR", $"Created seasonal map '{mapName}.lmf' with size {size}x{size}.");
                 UpdateOrCreateMapClass(logger, mapName);
                 createdCount++;
             }
 
-            logger.Log("MAPPR", $"Seasonal creation complete. Created: {createdCount}, Skipped: {skippedCount}");
+            logger.Log("MAPR", $"Seasonal creation complete. Created: {createdCount}, Skipped: {skippedCount}");
         }
 
-        private void EditMap(ConsoleLogger logger, string mapName)
+        private static void EditMap(ConsoleLogger logger, string mapName)
         {
             string path = Path.Combine(MapFolder, $"{mapName}.lmf");
             if (!File.Exists(path))
             {
-                logger.Log("MAPPR", $"Map file '{mapName}.lmf' not found.");
+                logger.Log("MAPR", $"Map file '{mapName}.lmf' not found.");
                 return;
             }
 
             var allLines = File.ReadAllLines(path).ToList();
             if (allLines.Count < 2 || !int.TryParse(allLines[0], out int declaredSize) || declaredSize <= 0)
             {
-                logger.Log("MAPPR", "Invalid map file format: missing or bad size line.");
+                logger.Log("MAPR", "Invalid map file format: missing or bad size line.");
                 return;
             }
 
             var originalLines = allLines.Skip(1).ToList();
             if (originalLines.Count != declaredSize)
             {
-                logger.Log("MAPPR", $"Invalid map layout. Expected {declaredSize} lines, found {originalLines.Count}.");
+                logger.Log("MAPR", $"Invalid map layout. Expected {declaredSize} lines, found {originalLines.Count}.");
                 return;
             }
 
             var tempLines = new List<string>(originalLines);
 
-            logger.Log("MAPPR", $"Editing map '{mapName}.lmf' ({declaredSize}x{declaredSize}).");
-            logger.Log("MAPPR", "Enter new line values or press Enter to keep current. Line length must be exactly the map size.");
+            logger.Log("MAPR", $"Editing map '{mapName}.lmf' ({declaredSize}x{declaredSize}).");
+            logger.Log("MAPR", "Enter new line values or press Enter to keep current. Line length must be exactly the map size.");
 
             for (int i = 0; i < declaredSize; i++)
             {
                 Console.WriteLine($"[{i}] {tempLines[i]}");
                 Console.Write($"New line {i} > ");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine()!;
 
                 if (!string.IsNullOrWhiteSpace(input))
                 {
                     string raw = input.Trim().Replace(" ", "");
                     if (raw.Length != declaredSize)
                     {
-                        logger.Log("MAPPR", $"Line must contain exactly {declaredSize} characters. Found {raw.Length}. Skipping.");
+                        logger.Log("MAPR", $"Line must contain exactly {declaredSize} characters. Found {raw.Length}. Skipping.");
                         continue;
                     }
                     string spaced = string.Join(' ', raw.ToCharArray());
@@ -206,14 +206,14 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             File.Delete(path);
             File.WriteAllLines(path, new[] { declaredSize.ToString() }.Concat(tempLines));
 
-            logger.Log("MAPPR", $"Saved changes to '{mapName}.lmf'.");
+            logger.Log("MAPR", $"Saved changes to '{mapName}.lmf'.");
         }
 
-        private void ListMaps(ConsoleLogger logger)
+        private static void ListMaps(ConsoleLogger logger)
         {
             if (!Directory.Exists(MapFolder))
             {
-                logger.Log("MAPPR", "Map folder does not exist.");
+                logger.Log("MAPR", "Map folder does not exist.");
                 return;
             }
 
@@ -221,11 +221,11 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             if (mapFiles.Length == 0)
             {
-                logger.Log("MAPPR", "No map files found.");
+                logger.Log("MAPR", "No map files found.");
                 return;
             }
 
-            logger.Log("MAPPR", $"Found {mapFiles.Length} map file(s):");
+            logger.Log("MAPR", $"Found {mapFiles.Length} map file(s):");
 
             foreach (var filePath in mapFiles.OrderBy(f => f))
             {
@@ -243,14 +243,14 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                         logger.Log("MAP", $"{fileName} (invalid format)");
                     }
                 }
-                catch (Exception)
+                catch (InvalidDataException e)
                 {
-                    logger.Log("MAP", $"{fileName} (error reading file)");
+                    logger.Log("MAP", $"{fileName} (error reading file): {e.Message}");
                 }
             }
         }
 
-        private void UpdateOrCreateMapClass(ConsoleLogger logger, string mapName)
+        private static void UpdateOrCreateMapClass(ConsoleLogger logger, string mapName)
         {
             string baseMapName = GetBaseMapName(mapName);
             string className = ToPascalCase(baseMapName);
@@ -271,37 +271,37 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
                 template.AppendLine("}");
 
                 File.WriteAllText(classPath, template.ToString());
-                logger.Log("MAPPR", $"Created new map class file: {className}.cs");
+                logger.Log("MAPR", $"Created new map class file: {className}.cs");
                 return;
             }
 
             var lines = File.ReadAllLines(classPath).ToList();
             if (lines.Any(l => l.Contains($"{mapName} =")))
             {
-                logger.Log("MAPPR", $"Map variable already exists in {className}.cs");
+                logger.Log("MAPR", $"Map variable already exists in {className}.cs");
                 return;
             }
 
             int insertIndex = lines.FindLastIndex(l => l.Trim().StartsWith("private readonly")) + 1;
             if (insertIndex == 0)
-                insertIndex = lines.FindIndex(l => l.Contains("{")) + 1;
+                insertIndex = lines.FindIndex(l => l.Contains('{')) + 1;
 
             lines.Insert(insertIndex, $"        {mapVar}");
             File.WriteAllLines(classPath, lines);
-            logger.Log("MAPPR", $"Added reference to '{mapName}.lmf' in {className}.cs");
+            logger.Log("MAPR", $"Added reference to '{mapName}.lmf' in {className}.cs");
         }
 
-        private void DeleteMap(ConsoleLogger logger, string mapName)
+        private static void DeleteMap(ConsoleLogger logger, string mapName)
         {
             string lmfPath = Path.Combine(MapFolder, $"{mapName}.lmf");
             if (!File.Exists(lmfPath))
             {
-                logger.Log("MAPPR", $"Map file '{mapName}.lmf' does not exist.");
+                logger.Log("MAPR", $"Map file '{mapName}.lmf' does not exist.");
             }
             else
             {
                 File.Delete(lmfPath);
-                logger.Log("MAPPR", $"Deleted map file '{mapName}.lmf'.");
+                logger.Log("MAPR", $"Deleted map file '{mapName}.lmf'.");
             }
 
             string baseMapName = GetBaseMapName(mapName);
@@ -310,7 +310,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             if (!File.Exists(classPath))
             {
-                logger.Log("MAPPR", $"Map class file '{className}.cs' not found.");
+                logger.Log("MAPR", $"Map class file '{className}.cs' not found.");
                 return;
             }
 
@@ -319,7 +319,7 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
 
             if (removedCount == 0)
             {
-                logger.Log("MAPPR", $"No reference to '{mapName}.lmf' found in {className}.cs.");
+                logger.Log("MAPR", $"No reference to '{mapName}.lmf' found in {className}.cs.");
                 return;
             }
 
@@ -327,25 +327,25 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
             if (!hasMapFields)
             {
                 File.Delete(classPath);
-                logger.Log("MAPPR", $"Removed last map reference. Deleted {className}.cs entirely.");
+                logger.Log("MAPR", $"Removed last map reference. Deleted {className}.cs entirely.");
             }
             else
             {
                 File.WriteAllLines(classPath, lines);
-                logger.Log("MAPPR", $"Removed reference to '{mapName}.lmf' from {className}.cs.");
+                logger.Log("MAPR", $"Removed reference to '{mapName}.lmf' from {className}.cs.");
             }
         }
 
         // Converts dots to underscores for file names
         // e.g., "nexus.christmas" → "nexus_christmas"
-        private string ConvertDotsToUnderscores(string mapName)
+        private static string ConvertDotsToUnderscores(string mapName)
         {
             return mapName.Replace('.', '_');
         }
 
         // Gets the base map name for class generation (removes seasonal suffixes but keeps main name intact)
         // e.g., "void_cradle_ruins" → "void_cradle_ruins", "void_cradle_ruins_spring" → "void_cradle_ruins"
-        private string GetBaseMapName(string mapName)
+        private static string GetBaseMapName(string mapName)
         {
             // Strip seasonal suffixes first
             string[] seasonalSuffixes = { "_spring", "_summer", "_autumn", "_winter" };
@@ -363,11 +363,11 @@ namespace ProjectMethylamine.Source.Utility.Commands.Testing
         }
 
         // Converts "void_cradle_ruins" -> "VoidCradleRuins"
-        private string ToPascalCase(string input)
+        private static string ToPascalCase(string input)
         {
             return string.Join("", input
                 .Split('_', StringSplitOptions.RemoveEmptyEntries)
-                .Select(part => char.ToUpper(part[0]) + part.Substring(1)));
+                .Select(static part => char.ToUpper(part[0]) + part.Substring(1)));
         }
     }
 }

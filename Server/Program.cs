@@ -2,21 +2,14 @@
 
 namespace ProjectMethylamine
 {
-    /// <summary>
-    /// Main application entry point with automatic mod loading via CompilationUtility.
-    /// </summary>
-    public static class Program
+    internal static class Program
     {
-        private static int versionID = 0;
-        private static int buildID = 1;
-        public static String[] information = new string[16];
+        private const int versionID = 0;
+        private const int buildID = 1;
+        private static readonly String[] information = ["v0.0.1", "DEBUG"];
 
-        private static ConsoleLogger logger = new ConsoleLogger();
+        private static readonly ConsoleLogger logger = new();
 
-        /// <summary>
-        /// Application entry point.
-        /// </summary>
-        /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
             Display_InitializeProgram(args);
@@ -30,14 +23,9 @@ namespace ProjectMethylamine
                 if (args[0] == "-v" && args[2] == "-b")
                 {
                     information[versionID] = args[1];
-                    information[buildID] = args[3].ToUpper();
+                    information[buildID] = args[3].ToUpper(System.Globalization.CultureInfo.CurrentCulture);
+                    logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
                 }
-                else if (args[0] == "-b" && args[2] == "-v")
-                {
-                    information[versionID] = args[3];
-                    information[buildID] = args[1].ToUpper();
-                }
-                logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
             }
             else
             {
@@ -45,9 +33,10 @@ namespace ProjectMethylamine
                 {
                     information[versionID] =
                        File.ReadAllText("version.txt").ToString()!.Trim();
-                }
+
                 information[buildID] = "DEBUG";
                 logger.Log("INFO", $"Running Project Methylamine {information[versionID]}...");
+                }
             }
         }
     }

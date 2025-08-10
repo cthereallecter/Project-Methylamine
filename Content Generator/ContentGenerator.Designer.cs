@@ -37,11 +37,13 @@
             chkDecrypt = new CheckBox();
             chkEncrypt = new CheckBox();
             gr = new GroupBox();
-            btnMAPPRDelete = new Button();
+            btnMAPRDelete = new Button();
             nmdMapSize = new NumericUpDown();
             txtMapName = new TextBox();
             chkMapSeasonal = new CheckBox();
             btnMAPPRMake = new Button();
+            lstDataPacks = new ListBox();
+            listBox1 = new ListBox();
             grpPAKR.SuspendLayout();
             gr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nmdMapSize).BeginInit();
@@ -127,7 +129,7 @@
             // 
             // gr
             // 
-            gr.Controls.Add(btnMAPPRDelete);
+            gr.Controls.Add(btnMAPRDelete);
             gr.Controls.Add(nmdMapSize);
             gr.Controls.Add(txtMapName);
             gr.Controls.Add(chkMapSeasonal);
@@ -141,13 +143,13 @@
             // 
             // btnMAPPRDelete
             // 
-            btnMAPPRDelete.Location = new Point(63, 80);
-            btnMAPPRDelete.Name = "btnMAPPRDelete";
-            btnMAPPRDelete.Size = new Size(117, 23);
-            btnMAPPRDelete.TabIndex = 5;
-            btnMAPPRDelete.Text = "Delete Map";
-            btnMAPPRDelete.UseVisualStyleBackColor = true;
-            btnMAPPRDelete.Click += btnMAPPRDelete_Click;
+            btnMAPRDelete.Location = new Point(63, 80);
+            btnMAPRDelete.Name = "btnMAPPRDelete";
+            btnMAPRDelete.Size = new Size(117, 23);
+            btnMAPRDelete.TabIndex = 5;
+            btnMAPRDelete.Text = "Delete Map";
+            btnMAPRDelete.UseVisualStyleBackColor = true;
+            btnMAPRDelete.Click += btnMAPRDelete_Click;
             // 
             // nmdMapSize
             // 
@@ -181,13 +183,33 @@
             btnMAPPRMake.TabIndex = 0;
             btnMAPPRMake.Text = "Make Map";
             btnMAPPRMake.UseVisualStyleBackColor = true;
-            btnMAPPRMake.Click += btnMAPPRMake_Click;
+            btnMAPPRMake.Click += btnMAPRMake_Click;
+            // 
+            // lstDataPacks
+            // 
+            lstDataPacks.FormattingEnabled = true;
+            lstDataPacks.ItemHeight = 15;
+            lstDataPacks.Location = new Point(519, 19);
+            lstDataPacks.Name = "lstDataPacks";
+            lstDataPacks.Size = new Size(126, 364);
+            lstDataPacks.TabIndex = 12;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(651, 19);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(137, 364);
+            listBox1.TabIndex = 13;
             // 
             // ContentGenerator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(526, 392);
+            ClientSize = new Size(800, 392);
+            Controls.Add(listBox1);
+            Controls.Add(lstDataPacks);
             Controls.Add(gr);
             Controls.Add(grpPAKR);
             Controls.Add(lsLogBox);
@@ -217,6 +239,8 @@
         private CheckBox chkEncrypt;
         private TextBox txtMapName;
         private NumericUpDown nmdMapSize;
-        private Button btnMAPPRDelete;
+        private ListBox lstDataPacks;
+        private ListBox listBox1;
+        private Button btnMAPRDelete;
     }
 }

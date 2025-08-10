@@ -1,6 +1,6 @@
 ﻿namespace ProjectMethylamine.Source.Maps
 {
-    public abstract class Map
+    internal abstract class Map
     {
 
     }
