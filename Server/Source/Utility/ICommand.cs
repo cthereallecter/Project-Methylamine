@@ -15,6 +15,8 @@ namespace ProjectMethylamine.Source.Utility
         private static readonly Dictionary<string, ICommand> commands = new()
         {
             ["clear"] = new ClearCommand(),
+            ["help"] = new HelpCommand(),
+
             ["itemz"] = new ItemzCommand(),
             ["mapr"] = new MaprCommand(),
             ["pakr"] = new PakrCommand()

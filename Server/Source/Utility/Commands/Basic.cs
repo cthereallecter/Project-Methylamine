@@ -10,6 +10,19 @@
         }
     }
 
+    internal class HelpCommand : ICommand
+    {
+        public void Execute(ConsoleLogger logger, string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ShowHelp(ConsoleLogger logger)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     internal class UnknownCommand : ICommand
     {
         public void Execute(ConsoleLogger logger, string input)
