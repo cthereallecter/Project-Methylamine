@@ -24,7 +24,7 @@ A comprehensive content management and web server application for game developme
 ### Project Structure
 ```
 Project Methylamine/
-├── Server/                    # Core server application
+├── Server/                   # Core server application
 │   ├── Source/
 │   │   ├── Items/            # Item system base classes
 │   │   ├── Maps/             # Map system base classes
@@ -33,7 +33,7 @@ Project Methylamine/
 │   │       ├── Cryptography/ # Encryption utilities
 │   │       └── Netting/      # Web server components
 │   └── Web/                  # Static web files
-├── Content Generator/         # Windows Forms GUI application
+├── Content Generator/        # Windows Forms GUI application
 ├── Content/
 │   └── Maps/                 # Generated map files (.lmf)
 ├── Logs/                     # Application logs

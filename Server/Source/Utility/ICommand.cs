@@ -10,7 +10,7 @@ namespace ProjectMethylamine.Source.Utility
         void ShowHelp(ConsoleLogger logger);
     }
 
-    internal static class CommandHandler
+    public static class CommandHandler
     {
         private static readonly Dictionary<string, ICommand> commands = new()
         {

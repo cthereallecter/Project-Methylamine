@@ -40,6 +40,33 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Web\png\client_background.pdn" />
+    <None Remove="Web\png\client_background.png" />
+    <None Remove="Web\png\client_play_downState.png" />
+    <None Remove="Web\png\client_play_hitState.png" />
+    <None Remove="Web\png\client_play_overState.png" />
+    <None Remove="Web\png\client_play_upState.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Web\png\client\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\png\client\play_downState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\png\client\play_hitState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\png\client\play_overState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\png\client\play_upState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <!-- Content Files - XML Configuration -->
 
   <!-- Content Files - C# Templates -->
@@ -51,6 +78,9 @@
     <PackageReference Include="System.Collections.Immutable" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="version.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Web\crossdomain.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -64,6 +94,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Web\Methylamine-Client.swf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Web\version.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

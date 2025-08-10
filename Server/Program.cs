@@ -6,13 +6,13 @@ namespace ProjectMethylamine
 {
     internal static class Program
     {
-        private static readonly String[] information = ["v0.0.1", "DEBUG"];
+        private static String[] information = ["v0.0.1", "DEBUG"];
 
         private static readonly ConsoleLogger logger = new();
 
         public static async Task Main(string[] args)
         {
-            Display_InitializeProgram(args); 
+            // Display_InitializeProgram(args); 
             
             var webServer = new WebServer(
                 domain: "thehideout.cthereallecter.com",
@@ -21,8 +21,9 @@ namespace ProjectMethylamine
                 staticFileRoot: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web")
             );
 
-            logger.Log("INFO", "Starting web server...");
+            logger.Log("INFO", $"Starting web server...");
             await webServer.StartAsync();
+            Console.ReadLine(); // Keep the server running until Enter is pressed
         }
 
         private static void Display_InitializeProgram(string[] args)

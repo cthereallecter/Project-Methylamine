@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace ProjectMethylamine.Source.Utility.Commands.Testing
+namespace ProjectMethylamine.Source.Utility.Commands
 {
     internal class MaprCommand : ICommand
     {

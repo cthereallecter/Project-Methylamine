@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text.Json;
 
-namespace ProjectMethylamine.Source.Utility.Commands.Testing
+namespace ProjectMethylamine.Source.Utility.Commands
 {
     internal class PakrCommand : ICommand
     {
