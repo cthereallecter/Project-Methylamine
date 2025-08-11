@@ -1,10 +1,11 @@
-﻿using ProjectMethylamine.Source.Utility.Cryptography;
+﻿using ProjectMethylamine.Source.Utility;
+using ProjectMethylamine.Source.Utility.Cryptography;
 using System;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.Json;
 
-namespace ProjectMethylamine.Source.Utility.Commands
+namespace ProjectMethylamine.Source.Commands
 {
     internal class PakrCommand : ICommand
     {

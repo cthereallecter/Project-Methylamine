@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ProjectMethylamine.Source.Utility;
+using System;
 using System.Linq;
 using System.Text;
 
-namespace ProjectMethylamine.Source.Utility.Commands
+namespace ProjectMethylamine.Source.Commands
 {
     internal class MaprCommand : ICommand
     {

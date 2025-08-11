@@ -1,4 +1,6 @@
-﻿namespace ProjectMethylamine.Source.Utility.Commands
+﻿using ProjectMethylamine.Source.Utility;
+
+namespace ProjectMethylamine.Source.Commands
 {
     internal class ClearCommand : ICommand
     {
@@ -33,6 +35,19 @@
         public void ShowHelp(ConsoleLogger logger)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    internal class ServerCommand : ICommand
+    {
+        public void Execute(ConsoleLogger logger, string input)
+        {
+            logger.Log("SERVER", "This command is not implemented yet.");
+        }
+        public void ShowHelp(ConsoleLogger logger)
+        {
+            logger.Log("HELP", "Usage: server [options]");
+            logger.Log("HELP", "Options: -start, -stop, -status");
         }
     }
 }

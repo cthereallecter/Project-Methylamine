@@ -15,17 +15,18 @@ namespace ProjectMethylamine
             // Display_InitializeProgram(args); 
             
             var webServer = new WebServer(
-                domain: "thehideout.cthereallecter.com",
+                domain: "thehidout.cthereallecter.com",
                 httpsPort: 443,
                 staticFileRoot: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web")
             );
 
             logger.Log("INFO", $"Starting web server...");
             await webServer.StartAsync();
-            Console.ReadLine(); // Keep the server running until Enter is pressed
+
+            InitializeProgram(args);
         }
 
-        private static void Display_InitializeProgram(string[] args)
+        private static void InitializeProgram(string[] args)
         {
             if (args.Length > 0)
             {

@@ -1,5 +1,5 @@
-﻿using ProjectMethylamine.Source.Utility.Commands;
-using ProjectMethylamine.Source.Utility.Commands.Testing;
+﻿using ProjectMethylamine.Source.Commands;
+using ProjectMethylamine.Source.Commands.Testing;
 
 namespace ProjectMethylamine.Source.Utility
 {
@@ -16,6 +16,7 @@ namespace ProjectMethylamine.Source.Utility
         {
             ["clear"] = new ClearCommand(),
             ["help"] = new HelpCommand(),
+            ["server"]= new ServerCommand(),
 
             ["itemz"] = new ItemzCommand(),
             ["mapr"] = new MaprCommand(),

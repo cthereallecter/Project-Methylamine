@@ -63,7 +63,7 @@ namespace ProjectMethylamine.Source.Utility.Netting
                     using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
                     {
                         string body = await reader.ReadToEndAsync();
-                        // Console.WriteLine($"[INFO] API POST Body: {body}");
+                        Console.WriteLine($"[INFO] API POST Body: {body}");
                     }
 
                     await WriteResponseAsync(response, "{\"status\":\"success\",\"message\":\"API endpoint working\"}", "application/json");
@@ -80,7 +80,7 @@ namespace ProjectMethylamine.Source.Utility.Netting
             byte[] buffer = Encoding.UTF8.GetBytes(content);
             response.ContentType = contentType;
             response.ContentLength64 = buffer.Length;
-            // await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+            await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
             response.OutputStream.Close();
         }
 

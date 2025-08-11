@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ProjectMethylamine.Source.Utility;
+using System;
 using System.Linq;
 
-namespace ProjectMethylamine.Source.Utility.Commands.Testing
+namespace ProjectMethylamine.Source.Commands.Testing
 {
     internal class ItemzCommand : ICommand
     {
