@@ -41,44 +41,96 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Web\png\client\options_downState.png" />
-    <None Remove="Web\png\client\options_hitState.png" />
-    <None Remove="Web\png\client\options_overState.png" />
-    <None Remove="Web\png\client\options_upState.png" />
-    <None Remove="Web\png\client_background.pdn" />
-    <None Remove="Web\png\client_background.png" />
-    <None Remove="Web\png\client_play_downState.png" />
-    <None Remove="Web\png\client_play_hitState.png" />
-    <None Remove="Web\png\client_play_overState.png" />
-    <None Remove="Web\png\client_play_upState.png" />
+    <None Remove="Web\content\audio\background_music.mp3" />
+    <None Remove="Web\content\png\client\buttons\mute_downState.png" />
+    <None Remove="Web\content\png\client\buttons\mute_hitState.png" />
+    <None Remove="Web\content\png\client\buttons\mute_overState.png" />
+    <None Remove="Web\content\png\client\buttons\mute_upState.png" />
+    <None Remove="Web\content\png\client\buttons\servers_downState.png" />
+    <None Remove="Web\content\png\client\buttons\servers_hitState.png" />
+    <None Remove="Web\content\png\client\buttons\servers_overState.png" />
+    <None Remove="Web\content\png\client\buttons\servers_upState.png" />
+    <None Remove="Web\content\png\client\buttons\volume_downState.png" />
+    <None Remove="Web\content\png\client\buttons\volume_hitState.png" />
+    <None Remove="Web\content\png\client\buttons\volume_overState.png" />
+    <None Remove="Web\content\png\client\buttons\volume_upState.png" />
+    <None Remove="Web\content\png\client\options_downState.png" />
+    <None Remove="Web\content\png\client\options_hitState.png" />
+    <None Remove="Web\content\png\client\options_overState.png" />
+    <None Remove="Web\content\png\client\options_upState.png" />
+    <None Remove="Web\content\png\client_background.pdn" />
+    <None Remove="Web\content\png\client_background.png" />
+    <None Remove="Web\content\png\client_play_downState.png" />
+    <None Remove="Web\content\png\client_play_hitState.png" />
+    <None Remove="Web\content\png\client_play_overState.png" />
+    <None Remove="Web\content\png\client_play_upState.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Web\png\client\background.png">
+    <Content Include="Web\content\audio\background_music.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\options_downState.png">
+    <Content Include="Web\content\png\client\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\options_hitState.png">
+    <Content Include="Web\content\png\client\buttons\mute\mute_downState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\options_overState.png">
+    <Content Include="Web\content\png\client\buttons\mute\mute_hitState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\options_upState.png">
+    <Content Include="Web\content\png\client\buttons\mute\mute_overState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\play_downState.png">
+    <Content Include="Web\content\png\client\buttons\mute\mute_upState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\play_hitState.png">
+    <Content Include="Web\content\png\client\buttons\options\options_downState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\play_overState.png">
+    <Content Include="Web\content\png\client\buttons\options\options_hitState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web\png\client\play_upState.png">
+    <Content Include="Web\content\png\client\buttons\options\options_overState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\options\options_upState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\play\play_downState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\play\play_hitState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\play\play_overState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\play\play_upState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\servers\servers_downState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\servers\servers_hitState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\servers\servers_overState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\servers\servers_upState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\volume\volume_downState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\volume\volume_hitState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\volume\volume_overState.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\content\png\client\buttons\volume\volume_upState.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
